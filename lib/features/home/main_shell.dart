@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../core/localization/app_localizations.dart';
 import '../../core/services/app_state.dart';
+import '../browse/browse_screen.dart';
+import '../create_trip/create_trip_screen.dart';
 import '../my_trips/my_trips_screen.dart';
 import '../profile/profile_screen.dart';
 import '../settings/settings_sheet.dart';
+import '../../widgets/animated_gradient_background.dart';
 import 'home_screen.dart';
 
 class MainShell extends StatefulWidget {
@@ -26,15 +29,17 @@ class _MainShellState extends State<MainShell> {
     super.initState();
     _pages = <Widget>[
       HomeScreen(appState: widget.appState),
-      const _PlaceholderScreen(label: 'Browse'),
+      BrowseScreen(appState: widget.appState),
+      CreateTripScreen(appState: widget.appState),
       MyTripsScreen(appState: widget.appState),
-      const _PlaceholderScreen(label: 'Messages'),
       ProfileScreen(appState: widget.appState),
     ];
   }
 
   void _onItemTapped(int index) {
-    widget.appState.setTabIndex(index);
+    widget.appState
+      ..setTabIndex(index)
+      ..setActiveGradientType(_gradientTypeForIndex(index));
   }
 
   @override
@@ -43,8 +48,8 @@ class _MainShellState extends State<MainShell> {
     final List<_NavItem> items = <_NavItem>[
       _NavItem(Icons.home_outlined, l10n.getString('tab_home')),
       _NavItem(Icons.explore_outlined, l10n.getString('tab_browse')),
+      _NavItem(Icons.add_circle_outline, l10n.getString('tab_create')),
       _NavItem(Icons.event_outlined, l10n.getString('tab_my_trips')),
-      _NavItem(Icons.chat_bubble_outline, l10n.getString('tab_messages')),
       _NavItem(Icons.person_outline, l10n.getString('tab_profile')),
     ];
     return AnimatedBuilder(
@@ -52,7 +57,11 @@ class _MainShellState extends State<MainShell> {
       builder: (BuildContext context, _) {
         final int currentIndex = widget.appState.currentTabIndex;
         return Scaffold(
+          backgroundColor: Colors.transparent,
+          extendBody: true,
           appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
             title: Text(l10n.getString('app_title')),
             actions: <Widget>[
               IconButton(
@@ -61,13 +70,16 @@ class _MainShellState extends State<MainShell> {
               ),
             ],
           ),
-          body: Directionality(
-            textDirection: widget.appState.locale.languageCode == 'ar'
-                ? TextDirection.rtl
-                : TextDirection.ltr,
-            child: IndexedStack(
-              index: currentIndex,
-              children: _pages,
+          body: AnimatedGradientBackground(
+            type: widget.appState.activeGradientType,
+            child: Directionality(
+              textDirection: widget.appState.locale.languageCode == 'ar'
+                  ? TextDirection.rtl
+                  : TextDirection.ltr,
+              child: IndexedStack(
+                index: currentIndex,
+                children: _pages,
+              ),
             ),
           ),
           bottomNavigationBar: BottomNavigationBar(
@@ -101,22 +113,24 @@ class _MainShellState extends State<MainShell> {
   }
 }
 
+String _gradientTypeForIndex(int index) {
+  switch (index) {
+    case 1:
+      return 'Cultural';
+    case 2:
+      return 'Private';
+    case 3:
+      return 'Volunteer';
+    case 4:
+      return 'Scientific';
+    default:
+      return 'Tourism';
+  }
+}
+
 class _NavItem {
   const _NavItem(this.icon, this.label);
 
   final IconData icon;
   final String label;
-}
-
-class _PlaceholderScreen extends StatelessWidget {
-  const _PlaceholderScreen({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(label, style: Theme.of(context).textTheme.headlineMedium),
-    );
-  }
 }

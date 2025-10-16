@@ -12,6 +12,7 @@ class AppState extends ChangeNotifier {
   Locale _locale = const Locale('ar');
   ThemeMode _themeMode = ThemeMode.light;
   int _currentTabIndex = 0;
+  String _activeGradientType = 'Tourism';
   String? _userRole;
   List<String> _userPreferences = <String>[];
   List<String> _savedExperiences = <String>[];
@@ -20,6 +21,7 @@ class AppState extends ChangeNotifier {
   Locale get locale => _locale;
   ThemeMode get themeMode => _themeMode;
   int get currentTabIndex => _currentTabIndex;
+  String get activeGradientType => _activeGradientType;
   String? get userRole => _userRole;
   List<String> get savedExperiences => _savedExperiences;
   List<String> get joinedTrips => _joinedTrips;
@@ -46,6 +48,14 @@ class AppState extends ChangeNotifier {
       return;
     }
     _currentTabIndex = index;
+    notifyListeners();
+  }
+
+  void setActiveGradientType(String type) {
+    if (_activeGradientType == type) {
+      return;
+    }
+    _activeGradientType = type;
     notifyListeners();
   }
 
