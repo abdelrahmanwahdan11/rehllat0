@@ -1,0 +1,81 @@
+{
+  "recommended": [
+    {
+      "id": "exp_101",
+      "title": "مسار جبلي في وادي القمر",
+      "type": "Tourism",
+      "location": "جبال فلسطين",
+      "lat": 31.8,
+      "lng": 35.3,
+      "startAt": "2025-11-15T09:00:00Z",
+      "durationHours": 6,
+      "price": 25.0,
+      "isSponsored": false,
+      "itinerary": ["نقطة تجمع", "صعود لمسار A", "استراحة", "قمة الوديان"],
+      "gallery": ["assets/mock/trail_1.jpg"]
+    }
+  ],
+  "nearby": [
+    {
+      "id": "exp_202",
+      "title": "جولة تاريخية في البلدة القديمة",
+      "type": "Learning",
+      "location": "القدس",
+      "lat": 31.78,
+      "lng": 35.23,
+      "startAt": "2025-10-25T12:00:00Z",
+      "durationHours": 3,
+      "price": 0.0,
+      "isSponsored": true,
+      "sponsor": {"name": "Heritage Org", "logo": "assets/mock/sponsor.png"},
+      "itinerary": ["ساحة البداية", "بوابة القلعة", "المتحف"]
+    }
+  ],
+  "volunteer": [
+    {
+      "id": "exp_303",
+      "title": "حملة تشجير تطوعية",
+      "type": "Volunteer",
+      "location": "أرياف أريحا",
+      "lat": 31.87,
+      "lng": 35.45,
+      "startAt": "2025-11-01T08:00:00Z",
+      "durationHours": 5,
+      "price": null,
+      "isSponsored": false,
+      "impactGoals": ["زراعة 50 شجرة", "تنظيف المسار"]
+    }
+  ],
+  "user": {
+    "id": "me",
+    "name": "ضيف",
+    "role": "Seeker",
+    "volunteerHours": 12,
+    "completedProjects": 4,
+    "badges": [
+      {"id": "b1", "title": "المساهم الأول", "icon": "assets/mock/badge1.png"}
+    ],
+    "history": [
+      {"id": "t1", "experienceId": "exp_202", "status": "completed"}
+    ]
+  },
+  "reviews": [
+    {
+      "id": "r1",
+      "author": {"id": "u2", "name": "ليان", "avatar": null},
+      "rating": 5,
+      "comment": "تنظيم رائع وتجربة ثرية!"
+    }
+  ],
+  "user_trips": {
+    "upcoming": [
+      {"id": "t2", "experienceId": "exp_303", "status": "upcoming"}
+    ],
+    "completed": [
+      {"id": "t1", "experienceId": "exp_202", "status": "completed"}
+    ],
+    "saved": [
+      {"id": "t3", "experienceId": "exp_101", "status": "saved"}
+    ]
+  }
+}
